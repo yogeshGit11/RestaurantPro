@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./restaurant-management-backend
+    container_name: restaurant-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - restaurant_data:/app
+  
+  frontend:
+    build:
+      context: ./restaurant-management-frontend
+      dockerfile: Dockerfile
+    container_name: restaurant-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  restaurant_data: {}
