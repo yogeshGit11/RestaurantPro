@@ -11,6 +11,7 @@ import ResetPasswd from '../components/user/ResetPasswd';
 
 import RestaurantList from '../components/restaurant/RestaurantList';
 import AddMenu from '../components/restaurant/AddMenu';
+import AddRestaurant from '../components/restaurant/AddRestaurant';
 import SavedMenus from '../components/restaurant/SavedMenus';
 
 export default function MainRoutes() {
@@ -28,6 +29,7 @@ export default function MainRoutes() {
 
                 <Route path="/restaurants" element={<RestaurantList />} />
                 <Route path="/add-menu/:id" element={<PrivateRoute><AddMenu /></PrivateRoute>} />
+                <Route path="/add-restaurant" element={<PrivateRoute><AddRestaurant /></PrivateRoute>} />
                 <Route path="/saved-menus" element={<PrivateRoute><SavedMenus /></PrivateRoute>} />
             </Routes>
         </>

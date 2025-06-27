@@ -6,9 +6,15 @@ services:
     container_name: restaurant-backend
     ports:
       - "8000:8000"
-    volumes:
-      - restaurant_data:/app
-  
+    depends_on:
+      - db
+    environment:
+      - DB_NAME=restaurant_db
+      - DB_USER=restaurant_user
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db
+      - USE_MYSQL=True
+
   frontend:
     build:
       context: ./restaurant-management-frontend
@@ -19,5 +25,18 @@ services:
     depends_on:
       - backend
 
+  db:
+    image: mysql:8
+    container_name: restaurant-db
+    environment:
+      MYSQL_DATABASE: restaurant_db
+      MYSQL_USER: restaurant_user
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
 volumes:
-  restaurant_data: {}
+  mysql_data:

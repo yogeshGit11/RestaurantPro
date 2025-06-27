@@ -83,3 +83,4 @@ celerybeat-schedule
 # dotenv
 .env
 
+/staticfiles/

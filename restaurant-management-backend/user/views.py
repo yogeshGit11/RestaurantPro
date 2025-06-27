@@ -13,10 +13,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import exception_handler
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 # New User registration
 class RegisterUserApi(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
     def post(self, request):
         serializer = UserRegisterSerializer(data=request.data)
         if serializer.is_valid():

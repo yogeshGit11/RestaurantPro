@@ -5,9 +5,19 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+#dependencies for mysqlclient
+RUN apt-get update && apt-get install -y \
+    gcc \
+    default-libmysqlclient-dev \
+    pkg-config \
+    libssl-dev \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . .
 
-CMD ["gunicorn", "restaurant-management-backend.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD python manage.py migrate && \
+    gunicorn restaurant-management-backend.wsgi:application --bind 0.0.0.0:8000

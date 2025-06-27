@@ -94,7 +94,10 @@ const RestaurantList = () => {
 
   return (
     <div className="container mt-5">
-      <h2 className="mb-4">🍽 Restaurant Listings</h2>
+      <div className="d-flex align-items-center">
+        <h2 className="mb-4">🍽 Restaurant Listings</h2>
+        {accessToken && <Link to='/add-restaurant' className="btn btn-outline-primary btn-sm mb-3 ms-4"> ➕ Add Restaurant</Link>}
+      </div>
       {error && <div className="alert alert-danger">{error}</div>}
 
       <div className="row">

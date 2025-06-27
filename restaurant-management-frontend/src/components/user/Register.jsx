@@ -5,6 +5,7 @@ import API_BASE_URL from '../../config';
 
 const Register = () => {
     const [formData, setFormData] = useState({
+        profile_pic: null,
         username: '',
         email: '',
         first_name: '',
@@ -17,6 +18,15 @@ const Register = () => {
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
+    const handleFileChange = (e) => {
+        setFormData({
+            ...formData,
+            profile_pic: e.target.files[0],
+        });
+        setErrors({ ...errors, profile_pic: null });
+    };
+
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -27,8 +37,20 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const data = new FormData();
+        data.append('username', formData.username);
+        data.append('email', formData.email);
+        data.append('first_name', formData.first_name);
+        data.append('last_name', formData.last_name);
+        data.append('password', formData.password);
+        data.append('password2', formData.password2);
+        if (formData.profile_pic) {
+            data.append('profile_pic', formData.profile_pic);
+        }
+
         try {
-            await axios.post(`${API_BASE_URL}/user/register/`, formData);
+            await axios.post(`${API_BASE_URL}/user/register/`, data);
             setMessage('User registered successfully!');
             setErrors({});
             setTimeout(() => {
@@ -59,7 +81,20 @@ const Register = () => {
                     <hr />
                     {message && <div className="alert alert-info">{message}</div>}
 
-                    <form onSubmit={handleSubmit} className="row g-3 needs-validation" noValidate>
+                    <form onSubmit={handleSubmit} encType="multipart/form-data" className="row g-3 needs-validation" noValidate>
+
+                        <div className="col-md-12">
+                            <label className="form-label">Profile Picture</label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                name="profile_pic"
+                                // value={formData.profile_pic}
+                                onChange={handleFileChange}
+                                accept="image/*"
+                            />
+                        </div>
+                        {renderError('profile_pic')}
                         <div className="col-md-6">
                             <label className="form-label">Username</label>
                             <input

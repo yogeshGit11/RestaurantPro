@@ -41,7 +41,11 @@ const Navbar = () => {
           <li className="nav-item">
             <Link to="/restaurants" className="nav-link fw-semibold">Restaurants</Link>
           </li>
-
+          {isLoggedIn && (
+            <li className="nav-item">
+              <Link to="/add-restaurant" className="nav-link fw-semibold">Add Restaurant</Link>
+            </li>
+          )}
           {!isLoggedIn && (
             <li className="nav-item">
               <Link to="/login" className="nav-link fw-semibold">Login</Link>

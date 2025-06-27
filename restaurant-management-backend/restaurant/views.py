@@ -33,7 +33,7 @@ class AddRestaurantApi(APIView):
         serializer = RestaurantSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"Message": "Restaurant Added Successfully..."}, status=200)
+            return Response({"Message": "Restaurant Added Successfully..."}, status=201)
         return Response(serializer.errors, status=400)
 
 
