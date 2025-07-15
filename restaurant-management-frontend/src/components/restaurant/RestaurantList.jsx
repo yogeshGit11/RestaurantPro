@@ -31,7 +31,7 @@ const RestaurantList = () => {
 
     try {
       await axios.get(
-        `http://127.0.0.1:8000/restaurant/restaurant/like/${restaurantId}/`,
+        `${API_BASE_URL}/restaurant/restaurant/like/${restaurantId}/`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`
@@ -54,7 +54,7 @@ const RestaurantList = () => {
 
     try {
       await axios.get(
-        `http://127.0.0.1:8000/restaurant/menuitem/like/${menuItemId}`,
+        `${API_BASE_URL}/restaurant/menuitem/like/${menuItemId}/`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`
@@ -77,7 +77,7 @@ const RestaurantList = () => {
 
     try {
       await axios.get(
-        `http://127.0.0.1:8000/restaurant/menuitem/save/${menuItemId}/${restaurantId}`,
+        `${API_BASE_URL}/restaurant/menuitem/save/${menuItemId}/${restaurantId}/`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`

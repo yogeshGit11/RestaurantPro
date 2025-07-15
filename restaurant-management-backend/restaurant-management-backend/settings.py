@@ -28,7 +28,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["backend.localdev.127.0.0.1.nip.io","127.0.0.1","localhost"]
 
 
 # Application definition
@@ -57,6 +57,17 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+class DisableCSRFMiddlewareOriginCheck:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        setattr(request, '_dont_enforce_csrf_checks', True)
+        return self.get_response(request)
+
+if os.getenv("DISABLE_CSRF_CHECKS", "false").lower() == "true":
+    MIDDLEWARE.insert(0, 'restaurant-management-backend.settings.DisableCSRFMiddlewareOriginCheck')
 
 ROOT_URLCONF = "restaurant-management-backend.urls"
 
@@ -139,7 +150,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 # Default primary key field type
@@ -158,7 +169,12 @@ AUTH_USER_MODEL = "user.CustomUser"
 REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "user.views.custom_exception_handler",
 }
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost",
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "http://localhost",
+# ]
+CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://backend.localdev.127.0.0.1.nip.io",
 ]

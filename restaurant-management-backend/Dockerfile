@@ -19,5 +19,6 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . .
 
-CMD python manage.py migrate && \
-    gunicorn restaurant-management-backend.wsgi:application --bind 0.0.0.0:8000
+RUN chmod +x /app/entrypoint.sh
+
+ENTRYPOINT ["/app/entrypoint.sh"]
