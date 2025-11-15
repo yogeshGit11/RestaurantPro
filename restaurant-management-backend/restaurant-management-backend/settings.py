@@ -28,7 +28,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = ["backend.localdev.127.0.0.1.nip.io","127.0.0.1","localhost"]
+ALLOWED_HOSTS = ["127.0.0.1","localhost","restaurant-backend","restaurant-backend.restaurantspace.svc.cluster.local"]
 
 
 # Application definition
@@ -58,17 +58,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-class DisableCSRFMiddlewareOriginCheck:
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        setattr(request, '_dont_enforce_csrf_checks', True)
-        return self.get_response(request)
-
-if os.getenv("DISABLE_CSRF_CHECKS", "false").lower() == "true":
-    MIDDLEWARE.insert(0, 'restaurant-management-backend.settings.DisableCSRFMiddlewareOriginCheck')
-
 ROOT_URLCONF = "restaurant-management-backend.urls"
 
 TEMPLATES = [
@@ -94,17 +83,17 @@ WSGI_APPLICATION = "restaurant-management-backend.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
-USE_MYSQL = os.getenv("USE_MYSQL", "False") == "True"
+USE_POSTGRES = os.getenv("USE_POSTGRES", "False") == "True"
 
-if USE_MYSQL:
+if USE_POSTGRES:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.mysql",
+            "ENGINE": "django.db.backends.postgresql",
             "NAME": os.getenv("DB_NAME"),
             "USER": os.getenv("DB_USER"),
             "PASSWORD": os.getenv("DB_PASSWORD"),
             "HOST": os.getenv("DB_HOST", "localhost"),
-            "PORT": os.getenv("DB_PORT", "3306"),
+            "PORT": os.getenv("DB_PORT", "5432"),
         }
     }
 else:

@@ -19,7 +19,7 @@ const AddRestaurant = () => {
 
         try {
             const response = await axios.post(
-                `${API_BASE_URL}/restaurant/add-restaurant/`,
+                '/api/restaurant/add-restaurant/',
                 { name: restaurantName },
                 {
                     headers: {

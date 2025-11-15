@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: restaurantspace
+data:
+  POSTGRES_DB: restaurant_db
+  POSTGRES_USER: restaurant_user

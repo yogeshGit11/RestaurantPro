@@ -6,5 +6,5 @@ metadata:
 data:
   DB_NAME: restaurant_db
   DB_USER: restaurant_user
-  DB_HOST: mysql
-  USE_MYSQL: "True"
+  DB_HOST: postgres
+  USE_POSTGRES: "True"

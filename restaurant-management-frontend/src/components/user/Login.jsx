@@ -24,7 +24,7 @@ const Login = () => {
         e.preventDefault();
         setMessage('');
         try {
-            const response = await axios.post(`${API_BASE_URL}/user/login/`, formData);
+            const response = await axios.post('/api/user/login/', formData);
             setMessage(response.data.Message || 'Login successful!');
             setErrors({});
 

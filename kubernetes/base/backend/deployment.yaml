@@ -4,7 +4,7 @@ metadata:
   name: restaurant-backend
   namespace: restaurantspace
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: restaurant-backend
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: yogeshpc2/restaurantpro-backend
+        image: yogeshpc2/restaurant-backend
         ports:
         - containerPort: 8000
         env:
@@ -36,11 +36,11 @@ spec:
             configMapKeyRef:
               name: backend-config
               key: DB_HOST
-        - name: USE_MYSQL
+        - name: USE_POSTGRES
           valueFrom:
             configMapKeyRef:
               name: backend-config
-              key: USE_MYSQL
+              key: USE_POSTGRES
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:

@@ -11,7 +11,7 @@ const SavedMenus = () => {
 
     const fetchSavedMenus = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/restaurant/get-saved-menuitems/`, {
+            const response = await axios.get('/api/restaurant/get-saved-menuitems/', {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
@@ -32,7 +32,7 @@ const SavedMenus = () => {
         if (!window.confirm('Are you sure you want to remove this menu item?')) return;
 
         try {
-            await axios.delete(`${API_BASE_URL}/restaurant/remove-saved-menuitem/${menuId}/`, {
+            await axios.delete(`/api/restaurant/remove-saved-menuitem/${menuId}/`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },

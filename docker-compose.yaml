@@ -1,0 +1,46 @@
+# Docker Compose file for Restaurant Management System
+version: '3.8'
+
+services:
+  backend:
+    build: ./restaurant-management-backend
+    container_name: restaurant-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./restaurant-management-frontend
+      args:
+        REACT_APP_API_BASE_URL: http://localhost:8000
+    container_name: restaurant-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:15
+    container_name: restaurant-db
+    env_file: 
+      - ./.env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:

@@ -11,7 +11,7 @@ const RestaurantList = () => {
 
   const fetchRestaurants = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/restaurant/get-restaurant/`);
+      const response = await axios.get('/api/restaurant/get-restaurant/');
       setRestaurants(response.data);
       setError('');
     } catch (err) {
@@ -31,7 +31,7 @@ const RestaurantList = () => {
 
     try {
       await axios.get(
-        `${API_BASE_URL}/restaurant/restaurant/like/${restaurantId}/`,
+        `/api/restaurant/restaurant/like/${restaurantId}/`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`
@@ -54,7 +54,7 @@ const RestaurantList = () => {
 
     try {
       await axios.get(
-        `${API_BASE_URL}/restaurant/menuitem/like/${menuItemId}/`,
+        `/api/restaurant/menuitem/like/${menuItemId}/`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`
@@ -77,7 +77,7 @@ const RestaurantList = () => {
 
     try {
       await axios.get(
-        `${API_BASE_URL}/restaurant/menuitem/save/${menuItemId}/${restaurantId}/`,
+        `/api/restaurant/menuitem/save/${menuItemId}/${restaurantId}/`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`

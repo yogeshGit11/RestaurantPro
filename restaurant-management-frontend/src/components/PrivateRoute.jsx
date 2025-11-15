@@ -18,7 +18,7 @@ const PrivateRoute = ({ children }) => {
 
             try {
                 const response = await axios.post(
-                    `${API_BASE_URL}/user/varify-token/`,
+                    '/api/user/varify-token/',
                     { token: accessToken },
                     { headers: { 'Content-Type': 'application/json' } }
                 );
@@ -33,7 +33,7 @@ const PrivateRoute = ({ children }) => {
                 if (refreshToken) {
                     try {
                         const refreshResponse = await axios.post(
-                            'http://127.0.0.1:8000/user/get-new-token/',
+                            '/api/user/get-new-token/',
                             { refresh: refreshToken },
                             { headers: { 'Content-Type': 'application/json' } }
                         );

@@ -27,7 +27,7 @@ const ResetPasswd = () => {
         setMessage('');
         setErrors({});
         try {
-            const response = await axios.post(`${API_BASE_URL}/user/reset-password/`, formData);
+            const response = await axios.post('/api/user/reset-password/', formData);
             setMessage(response.data.Message);
             setFormData({
                 email: '',

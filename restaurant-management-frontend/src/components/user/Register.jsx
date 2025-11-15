@@ -50,7 +50,7 @@ const Register = () => {
         }
 
         try {
-            await axios.post(`${API_BASE_URL}/user/register/`, data);
+            await axios.post('/api/user/register/', data);
             setMessage('User registered successfully!');
             setErrors({});
             setTimeout(() => {

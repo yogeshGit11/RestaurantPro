@@ -35,7 +35,7 @@ const PasswdChange = () => {
         }
 
         try {
-            const response = await axios.post(`${API_BASE_URL}/user/passchange/`, formData, {
+            const response = await axios.post('/api/user/passchange/', formData, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }

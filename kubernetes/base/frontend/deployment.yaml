@@ -4,7 +4,7 @@ metadata:
   name: restaurant-frontend
   namespace: restaurantspace
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: restaurant-frontend
@@ -15,9 +15,12 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: yogeshpc2/restaurantpro-frontend
+        image: yogeshpc2/restaurant-frontend
         ports:
         - containerPort: 80
+        env:
+        - name: REACT_APP_API_BASE_URL
+          value: "http://restaurant-backend:8000"
         resources:
           requests:
             cpu: "100m"

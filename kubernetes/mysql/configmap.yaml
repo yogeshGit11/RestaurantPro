@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mysql-config
-  namespace: restaurantspace
-data:
-  MYSQL_DATABASE: restaurant_db
-  MYSQL_USER: restaurant_user
