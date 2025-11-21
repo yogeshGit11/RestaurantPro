@@ -5,7 +5,7 @@ pipeline {
         REGISTRY = "docker.io"
         BACKEND_IMAGE = "docker.io/yogeshpc2/restaurant-backend"
         FRONTEND_IMAGE = "docker.io/yogeshpc2/restaurant-frontend"
-        TAG = "latest"
+        TAG = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
     }
 
     stages {
