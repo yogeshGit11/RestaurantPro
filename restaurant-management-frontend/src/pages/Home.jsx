@@ -7,7 +7,7 @@ const Home = () => {
     <div className="home-container">
       <div className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">Discover Restaurant And Food</h1>
+          <h1 className="hero-title">Discover Restaurant And Food...Buddy</h1>
           <p className="hero-subtitle">Delicious food. Friendly vibes. A perfect spot to relax, eat, and enjoy with loved ones.</p>
 
           <div className="navigation-section">
