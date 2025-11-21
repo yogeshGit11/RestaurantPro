@@ -15,19 +15,23 @@ pipeline {
             }
         }
 
-        stage('Login to GHCR') {
-            steps {
-                withCredentials([
-                    string(credentialsId: 'ghcr-token', variable: 'GHCR_TOKEN'),
-                    string(credentialsId: 'ghcr-username', variable: 'GHCR_USER')
-                ]) {
-                    sh 'echo "Logging in to GHCR..."'
-                    sh """
-                    echo \$GHCR_TOKEN | docker login \$REGISTRY -u \$GHCR_USER --password-stdin
-                    """
-                }
-            }
+stage('Login to GHCR') {
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'ghcr-username',
+                usernameVariable: 'GHCR_USER',
+                passwordVariable: 'GHCR_TOKEN'
+            )
+        ]) {
+            sh """
+            echo Logging in to GHCR...
+            echo \$GHCR_TOKEN | docker login ghcr.io -u \$GHCR_USER --password-stdin
+            """
         }
+    }
+}
+
 
         stage('Build Backend Image') {
             steps {
