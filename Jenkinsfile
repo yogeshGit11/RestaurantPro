@@ -22,6 +22,8 @@ stages {
                 string(credentialsId: 'ghcr-token', variable: 'GHCR_TOKEN'),
                 string(credentialsId: 'ghcr-username', variable: 'GHCR_USER')
             ]) {
+                sh 'echo "GHCR_USER: \$GHCR_USER"'
+                sh 'echo "GHCR_TOKEN: \$GHCR_TOKEN"'
                 sh """
                 echo \$GHCR_TOKEN | docker login ghcr.io -u \$GHCR_USER --password-stdin
                 """
@@ -54,4 +56,5 @@ stages {
         }
     }
 }
+
 }
